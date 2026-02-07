@@ -219,9 +219,9 @@ app.post('/api/match', (req, res) => {
     const studentData = req.body;
 
     // Validate required fields
-    if (!studentData.campus || !studentData.citizenshipStatus) {
+    if (!studentData.campus || !studentData.citizenshipStatus || !studentData.faculty || !studentData.year || !studentData.gender) {
       return res.status(400).json({
-        error: 'Missing required fields: campus and citizenshipStatus are required'
+        error: 'Missing required fields!'
       });
     }
 
