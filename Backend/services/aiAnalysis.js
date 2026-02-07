@@ -18,7 +18,7 @@ async function analyzeChance(studentData, award) {
     try {
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-        const prompt = `You are an expert university financial aid advisor. Analyze a student's chances of receiving a specific award.
+        const prompt = `You are an expert university financial aid advisor. Analyze a student's chances of receiving a specific award in bullet-point form.
 
 STUDENT PROFILE:
 - Faculty: ${studentData.faculty || 'Not specified'}
