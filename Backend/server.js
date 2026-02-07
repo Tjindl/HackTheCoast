@@ -101,9 +101,6 @@ function evaluateMatch(studentData, award) {
     }
     matchReasons.push('✓ Meets citizenship requirement');
   }
-  else {
-    matchReasons.push(`✓ No citizenship requirement`);
-  }
 
   // Check campus (CRITICAL - must match)
   if (criteria.campus) {
@@ -134,9 +131,6 @@ function evaluateMatch(studentData, award) {
       matchScore -= 50;
     }
   }
-  else {
-    matchReasons.push(`✓ Open to any students in any year!`);
-  }
 
   // Check faculty
   if (criteria.requiredFaculty && studentData.faculty) {
@@ -149,9 +143,6 @@ function evaluateMatch(studentData, award) {
       matchScore -= 40;
     }
   }
-  else {
-    matchReasons.push(`✓ Open to any students in any faculty!`);
-  }
 
   // Check GPA
   if (criteria.minGPA) {
@@ -161,9 +152,6 @@ function evaluateMatch(studentData, award) {
       missingRequirements.push(`Requires minimum GPA of ${criteria.minGPA}`);
       matchScore -= 30;
     }
-  }
-  else {
-    matchReasons.push(`✓ No GPA requirement`);
   }
 
   // Check gender
@@ -175,9 +163,6 @@ function evaluateMatch(studentData, award) {
       matchScore -= 25;
     }
   }
-  else {
-    matchReasons.push(`✓ Open to any students of all genders`);
-  }
 
   // Check financial need
   if (criteria.financialNeed) {
@@ -187,9 +172,6 @@ function evaluateMatch(studentData, award) {
       missingRequirements.push('Requires demonstrated financial need');
       matchScore -= 30;
     }
-  }
-  else {
-    matchReasons.push(`✓ No financial need requirement);
   }
 
   // Check part-time eligibility
