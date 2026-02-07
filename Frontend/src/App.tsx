@@ -21,6 +21,7 @@ function App() {
     good: MatchResult[];
     partial: MatchResult[];
   } | null>(null);
+  const [studentData, setStudentData] = useState<StudentFormData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,6 +37,7 @@ function App() {
 
       setMatches(response.data.matches);
       setCategorized(response.data.categorized);
+      setStudentData(formData);
     } catch (err) {
       console.error('Error fetching matches:', err);
       setError('Failed to find matches. Please try again.');
@@ -47,6 +49,7 @@ function App() {
   const handleReset = () => {
     setMatches(null);
     setCategorized(null);
+    setStudentData(null);
     setError(null);
   };
 
@@ -68,10 +71,10 @@ function App() {
           </div>
         )}
 
-        {matches === null || categorized === null ? (
+        {matches === null || categorized === null || studentData === null ? (
           <StudentForm onSubmit={handleFormSubmit} loading={loading} />
         ) : (
-          <Results matches={matches} categorized={categorized} onReset={handleReset} />
+          <Results matches={matches} categorized={categorized} studentData={studentData} onReset={handleReset} />
         )}
       </main>
 

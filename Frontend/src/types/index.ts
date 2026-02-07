@@ -94,3 +94,15 @@ export interface MatchResult {
   matchReasons: string[];
   missingRequirements: string[];
 }
+
+// AI Analysis types
+export interface AIAnalysis {
+  success: boolean;
+  awardId: string;
+  awardName: string;
+  chanceLevel: 'HIGH' | 'MEDIUM' | 'LOW';
+  chancePercentage: number;
+  keyFactors: string[];
+  advice: string;
+  summary: string;
+}

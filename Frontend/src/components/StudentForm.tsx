@@ -121,20 +121,20 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                 Faculty/Program
               </label>
               <select
-                type="text"
                 name="faculty"
                 value={formData.faculty}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option>value={1}Arts</option>
-                <option>value={2}Science</option>
-                <option>value={3}Engineering</option>
-                <option>value={4}Forestry</option>
-                <option>value={1}Medicine</option>
-                <option>value={1}Dentistry</option>
-                <option>value={1}Law</option>
-                <option>value={1}Graduate Studies</option>
+                <option value="">Select Faculty</option>
+                <option value="Arts">Arts</option>
+                <option value="Science">Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Forestry">Forestry</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Dentistry">Dentistry</option>
+                <option value="Law">Law</option>
+                <option value="Graduate Studies">Graduate Studies</option>
               </select>
             </div>
 

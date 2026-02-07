@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { analyzeChance, analyzeMultipleAwards } = require('./services/aiAnalysis');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -67,7 +69,7 @@ function evaluateMatch(studentData, award) {
 
   // Check faculty
   if (criteria.requiredFaculty && studentData.faculty) {
-    if (criteria.requiredFaculty.some(f => 
+    if (criteria.requiredFaculty.some(f =>
       f.toLowerCase() === studentData.faculty.toLowerCase()
     )) {
       matchReasons.push(`Matches your faculty (${studentData.faculty})`);
@@ -215,7 +217,7 @@ app.get('/api/awards', (req, res) => {
 app.post('/api/match', (req, res) => {
   try {
     const studentData = req.body;
-    
+
     // Validate required fields
     if (!studentData.campus || !studentData.citizenshipStatus) {
       return res.status(400).json({
@@ -224,7 +226,7 @@ app.post('/api/match', (req, res) => {
     }
 
     const matches = matchStudentToAwards(studentData, awards);
-    
+
     // Categorize matches
     const categorized = {
       perfect: matches.filter(m => m.matchScore >= 90 && m.missingRequirements.length === 0),
@@ -244,8 +246,70 @@ app.post('/api/match', (req, res) => {
   }
 });
 
+// Analyze chance for a single award
+app.post('/api/analyze-chance', async (req, res) => {
+  try {
+    const { studentData, awardId } = req.body;
+
+    if (!studentData || !awardId) {
+      return res.status(400).json({
+        error: 'Missing required fields: studentData and awardId are required'
+      });
+    }
+
+    // Find the award
+    const award = awards.find(a => a.id === awardId);
+    if (!award) {
+      return res.status(404).json({ error: 'Award not found' });
+    }
+
+    const analysis = await analyzeChance(studentData, award);
+    res.json({
+      awardId: award.id,
+      awardName: award.name,
+      ...analysis
+    });
+  } catch (error) {
+    console.error('Error analyzing chance:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Analyze chances for multiple awards (top matches)
+app.post('/api/analyze-chances', async (req, res) => {
+  try {
+    const { studentData, awardIds, limit = 5 } = req.body;
+
+    if (!studentData) {
+      return res.status(400).json({
+        error: 'Missing required field: studentData'
+      });
+    }
+
+    // Get awards to analyze (either specific IDs or use top matches)
+    let awardsToAnalyze;
+    if (awardIds && awardIds.length > 0) {
+      awardsToAnalyze = awards.filter(a => awardIds.includes(a.id));
+    } else {
+      // Get top matches first
+      const matches = matchStudentToAwards(studentData, awards);
+      awardsToAnalyze = matches.slice(0, limit).map(m => m.award);
+    }
+
+    const analyses = await analyzeMultipleAwards(studentData, awardsToAnalyze, limit);
+    res.json({
+      totalAnalyzed: analyses.length,
+      analyses
+    });
+  } catch (error) {
+    console.error('Error analyzing chances:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`API available at http://localhost:${PORT}/api`);
+  console.log(`Gemini AI: ${process.env.GEMINI_API_KEY ? 'Enabled' : 'Using fallback (no API key)'}`);
 });
