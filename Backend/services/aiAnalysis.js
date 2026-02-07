@@ -53,7 +53,7 @@ Based on this information, provide an analysis in the following JSON format ONLY
   "chanceLevel": "HIGH" or "MEDIUM" or "LOW",
   "chancePercentage": <number between 0-100>,
   "keyFactors": ["factor1", "factor2", "factor3"],
-  "advice": "One paragraph of personalized advice on how to improve chances or what to prepare for the application",
+  "advice": "5-7 bullet points of personalized advice on how to improve chances or what to prepare for the application. Include potential issues with their profile and potential strengths to bank on.",
   "summary": "A brief one-sentence summary of their chances"
 }`;
 
