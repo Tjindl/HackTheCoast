@@ -27,8 +27,18 @@ export default function AnalysisModal({ analysis, onClose }: AnalysisModalProps)
         },
     };
 
-    const style = colors[analysis.chanceLevel];
+    const style = colors[analysis.chanceLevel as keyof typeof colors];
 
+    // Map backend levels to display labels
+    const displayLabels: Record<string, string> = {
+        HIGH: 'Likely',
+        MEDIUM: 'Moderate',
+        LOW: 'Low',
+    };
+
+    const displayLabel = displayLabels[analysis.chanceLevel] || analysis.chanceLevel;
+
+    // ...existing code...
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
@@ -56,7 +66,7 @@ export default function AnalysisModal({ analysis, onClose }: AnalysisModalProps)
                         <span className="text-gray-600 font-medium">Your Chances</span>
                         <div className="flex items-center gap-3">
                             <span className={`px-4 py-2 rounded-lg font-bold text-xl ${style.badge}`}>
-                                {analysis.chanceLevel}
+                                {displayLabel}
                             </span>
                             <div className="text-right">
                                 <div className="text-2xl font-bold text-gray-900">{analysis.chancePercentage}%</div>
