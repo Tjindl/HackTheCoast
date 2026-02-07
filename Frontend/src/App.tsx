@@ -30,7 +30,10 @@ function App() {
     setError(null);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      // In production, default to relative path (empty string) so it uses the same domain
+      const defaultUrl = import.meta.env.PROD ? '' : 'http://localhost:3001';
+      const apiUrl = import.meta.env.VITE_API_URL || defaultUrl;
+
       const response = await axios.post<MatchResponse>(
         `${apiUrl}/api/match`,
         formData
