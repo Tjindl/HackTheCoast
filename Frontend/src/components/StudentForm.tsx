@@ -118,7 +118,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Faculty/Program
+                Faculty/Program *
               </label>
               <select
                 name="faculty"
@@ -184,7 +184,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Gender
+                Gender *
               </label>
               <select
                 name="gender"
