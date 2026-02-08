@@ -11,13 +11,13 @@ import {
   DollarSign,
   Users,
   ChevronRight,
-  ChevronLeft,
   Check,
   Loader2,
   Sparkles,
   Zap,
 } from "lucide-react";
 import { StudentFormData } from "../types";
+import { cn } from "../lib/utils";
 
 interface StudentFormProps {
   onSubmit: (data: StudentFormData) => void;
@@ -95,8 +95,19 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
     }
   };
 
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return !!formData.faculty && !!formData.campus && !!formData.year;
+      case 2:
+        return !!formData.citizenshipStatus;
+      default:
+        return true;
+    }
+  };
+
   const nextStep = () => {
-    if (currentStep < steps.length) {
+    if (currentStep < steps.length && isStepValid()) {
       setDirection(1);
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -116,8 +127,8 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
     onSubmit(formData);
   };
 
-  // Helper for cleaner card selection UI - Cosmic Style
-  const SelectionCard = ({
+  // Modern Radio Card Component for Professional Selection
+  const RadioCard = ({
     title,
     description,
     checked,
@@ -183,28 +194,22 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
           </p>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 
-  // Animation variants
+  // Animation variants - Subtle slide
   const pageVariants = {
     initial: (direction: number) => ({
       opacity: 0,
-      x: direction > 0 ? 100 : -100,
-      rotateY: direction > 0 ? 15 : -15, // 3D flip effect
-      scale: 0.9,
+      x: direction > 0 ? 20 : -20, // Reduced movement for sophistication
     }),
     animate: {
       opacity: 1,
       x: 0,
-      rotateY: 0,
-      scale: 1,
     },
     exit: (direction: number) => ({
       opacity: 0,
-      x: direction > 0 ? -100 : 100,
-      rotateY: direction > 0 ? -15 : 15,
-      scale: 0.9,
+      x: direction > 0 ? -20 : 20,
     }),
   };
 
@@ -228,18 +233,12 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
           const isCompleted = currentStep > step.id;
           const isCurrent = currentStep === step.id;
 
+
           return (
-            <motion.div
+            <div
               key={step.id}
-              className={`flex flex-col items-center cursor-pointer relative group`}
-              onClick={() => {
-                if (step.id < currentStep) {
-                  setDirection(-1);
-                  setCurrentStep(step.id);
-                }
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              className="relative flex flex-col items-center group cursor-pointer"
+              onClick={() => step.id < currentStep && setCurrentStep(step.id)}
             >
               <div
                 className={`w-14 h-14 rounded-full flex items-center justify-center text-lg mb-3 border-4 backdrop-blur-sm transition-all duration-500 relative z-10
@@ -251,7 +250,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                       : "bg-slate-900 border-slate-700 text-slate-500 hover:border-slate-500 hover:text-slate-300"
                   }`}
               >
-                {isCompleted ? <Check size={28} strokeWidth={3} /> : step.icon}
+                {isCompleted ? <Check size={16} /> : <span>{step.id}</span>}
               </div>
               <span
                 className={`text-xs font-bold uppercase tracking-widest transition-colors duration-300 hidden sm:block absolute -bottom-8 w-max
@@ -265,22 +264,20 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
               >
                 {step.title}
               </span>
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-slate-900/60 backdrop-blur-2xl shadow-2xl rounded-[2rem] overflow-hidden border border-slate-700/50 relative isolate"
-        initial={{ opacity: 0, y: 50, rotateX: 10 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{ duration: 0.8, type: "spring" }}
+        className="bg-slate-900 shadow-2xl rounded-2xl border border-slate-800 overflow-hidden relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Animated Form Header Glow */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-80 animate-pulse" />
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
+        {/* Subtle top highlight */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent opacity-50" />
 
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
@@ -290,9 +287,18 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="p-8 md:p-12 min-h-[550px]"
+            transition={{ type: "tween", ease: "circOut", duration: 0.4 }}
+            className="p-8 md:p-10 min-h-[480px]"
           >
+            {/* Step Header */}
+            <div className="mb-10 border-b border-slate-800 pb-6">
+              <h2 className="text-2xl font-light text-white mb-2 flex items-center gap-3">
+                {React.createElement(steps[currentStep - 1].icon, { className: "text-cyan-500 w-6 h-6 stroke-[1.5px]" })}
+                {steps[currentStep - 1].title} Details
+              </h2>
+              <p className="text-slate-400 text-sm font-light">{steps[currentStep - 1].description}</p>
+            </div>
+
             {/* Step 1: Academic Information */}
             {currentStep === 1 && (
               <div className="space-y-10">
@@ -320,12 +326,13 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                         name="campus"
                         value={formData.campus}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                        className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none appearance-none cursor-pointer hover:border-slate-600"
                       >
                         <option value="Vancouver">Vancouver Campus</option>
                         <option value="Okanagan">Okanagan Campus</option>
                       </select>
-                      <Building className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
+                      <Building className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4 pointer-events-none group-focus-within:text-cyan-500 transition-colors" />
+                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-600 w-4 h-4 pointer-events-none" />
                     </div>
                   </div>
 
@@ -338,7 +345,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                         name="year"
                         value={formData.year}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                        className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none appearance-none cursor-pointer hover:border-slate-600"
                       >
                         {[1, 2, 3, 4, 5].map((y) => (
                           <option key={y} value={y}>
@@ -356,9 +363,10 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                           </option>
                         ))}
                       </select>
-                      <div className="absolute left-5 top-4.5 text-slate-500 font-bold w-5 h-5 flex items-center justify-center pointer-events-none text-xs border border-slate-600 rounded-md group-focus-within:text-cyan-400 group-focus-within:border-cyan-400">
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-bold w-4 h-4 flex items-center justify-center pointer-events-none text-[10px] border border-slate-600 rounded group-focus-within:text-cyan-500 group-focus-within:border-cyan-500">
                         {formData.year}
                       </div>
+                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-600 w-4 h-4 pointer-events-none" />
                     </div>
                   </div>
                 </div>
@@ -372,7 +380,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                       name="faculty"
                       value={formData.faculty}
                       onChange={handleChange}
-                      className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                      className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none appearance-none cursor-pointer hover:border-slate-600"
                     >
                       <option value="">Select your faculty...</option>
                       {[
@@ -396,7 +404,8 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                           </option>
                         ))}
                     </select>
-                    <BookOpen className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
+                    <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4 pointer-events-none group-focus-within:text-cyan-500 transition-colors" />
+                    <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-600 w-4 h-4 pointer-events-none" />
                   </div>
                 </div>
 
@@ -414,7 +423,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                       max="4.33"
                       step="0.01"
                       placeholder="e.g., 3.8"
-                      className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none font-medium text-slate-100 placeholder-slate-600 hover:bg-slate-800/80"
+                      className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none font-medium placeholder:text-slate-600 hover:border-slate-600"
                     />
                     <Award className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
                     <div className="absolute right-5 top-4.5 text-slate-500 text-sm font-medium bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
@@ -452,7 +461,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                         name="citizenshipStatus"
                         value={formData.citizenshipStatus}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                        className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none appearance-none cursor-pointer hover:border-slate-600"
                       >
                         <option value="Canadian Citizen">
                           Canadian Citizen
@@ -465,7 +474,8 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                           International Student
                         </option>
                       </select>
-                      <Globe className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-purple-400" />
+                      <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4 pointer-events-none group-focus-within:text-cyan-500" />
+                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-600 w-4 h-4 pointer-events-none" />
                     </div>
                   </div>
 
@@ -478,7 +488,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                         name="gender"
                         value={formData.gender || ""}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                        className="w-full p-3 pl-10 bg-slate-950 border border-slate-700 rounded-lg text-sm text-slate-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all outline-none appearance-none cursor-pointer hover:border-slate-600"
                       >
                         <option value="">Prefer not to say</option>
                         <option value="Male">Male</option>
@@ -486,14 +496,15 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                         <option value="Non-binary">Non-binary</option>
                         <option value="Two-Spirit">Two-Spirit</option>
                       </select>
-                      <User className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-purple-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4 pointer-events-none group-focus-within:text-cyan-500" />
+                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-600 w-4 h-4 pointer-events-none" />
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-6 grid grid-cols-1 gap-5">
-                  <SelectionCard
-                    title="I am an Indigenous Student"
+                <div className="pt-2 grid grid-cols-1 gap-3">
+                  <RadioCard
+                    title="I identify as an Indigenous Student"
                     description="First Nations, Métis, or Inuit ancestry"
                     checked={formData.indigenousStatus}
                     onChange={() =>
@@ -644,7 +655,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
                       formData.affiliations[affiliationKey] || false;
 
                     return (
-                      <motion.div
+                      <div
                         key={item.key}
                         whileHover={{
                           scale: 1.05,
@@ -702,13 +713,13 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Footer / Navigation Actions - Glassmorphic Footer */}
-        <div className="px-8 md:px-12 py-8 bg-slate-900/50 backdrop-blur-xl border-t border-slate-700/50 flex justify-between items-center relative z-20">
+        {/* Footer Actions - Clean Bar */}
+        <div className="px-8 md:px-10 py-6 bg-slate-950 border-t border-slate-800 flex justify-between items-center">
           {currentStep > 1 ? (
             <button
               type="button"
               onClick={prevStep}
-              className="flex items-center gap-2 text-slate-400 font-semibold px-6 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all duration-200 group"
+              className="text-slate-500 text-sm font-medium hover:text-slate-300 transition-colors px-4 py-2"
             >
               <ChevronLeft
                 size={20}
@@ -724,7 +735,8 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
             <button
               type="button"
               onClick={nextStep}
-              className="relative group overflow-hidden bg-cyan-600 text-white font-bold py-3.5 px-10 rounded-2xl shadow-[0_10px_20px_-10px_rgba(8,145,178,0.5)] transition-all duration-300 hover:shadow-[0_20px_30px_-10px_rgba(8,145,178,0.6)] hover:-translate-y-1 hover:bg-cyan-500"
+              disabled={!isStepValid()}
+              className="bg-white text-slate-900 hover:bg-slate-200 font-semibold text-sm py-2.5 px-6 rounded-lg transition-colors shadow-lg shadow-white/5 active:scale-95 duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="relative z-10 flex items-center gap-2 text-lg tracking-wide">
                 Next Step{" "}
@@ -739,14 +751,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
             <button
               type="submit"
               disabled={loading}
-              className={`
-                relative overflow-hidden
-                bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-4 px-12 rounded-2xl 
-                shadow-[0_10px_30px_-10px_rgba(16,185,129,0.5)] 
-                hover:shadow-[0_20px_40px_-5px_rgba(16,185,129,0.7)] hover:-translate-y-1 hover:brightness-110
-                transition-all duration-300 transform
-                disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 text-lg tracking-wider
-              `}
+              className="bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm py-3 px-8 rounded-lg shadow-lg shadow-cyan-500/20 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {loading ? (
                 <>
@@ -763,9 +768,13 @@ const StudentForm: React.FC<StudentFormProps> = ({ onSubmit, loading }) => {
         </div>
       </motion.form>
 
-      <p className="text-center text-xs font-medium text-slate-500 mt-10 tracking-widest uppercase opacity-60">
-        Secure • Private • Local Processing
-      </p>
+      <div className="mt-8 flex justify-center items-center gap-4 text-[10px] text-slate-600 uppercase tracking-widest font-medium">
+        <span>Secure</span>
+        <span className="w-1 h-1 rounded-full bg-slate-700" />
+        <span>Private</span>
+        <span className="w-1 h-1 rounded-full bg-slate-700" />
+        <span>Local</span>
+      </div>
     </div>
   );
 };

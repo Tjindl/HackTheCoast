@@ -6,7 +6,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'form'>('home');
 
   return (
-    <div className="app">
+    <div className="app h-full">
       {currentPage === 'home' ? (
         <HomePage onNavigate={() => setCurrentPage('form')} />
       ) : (

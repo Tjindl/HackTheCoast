@@ -145,6 +145,7 @@ const Results: React.FC<ResultsProps> = ({
                 onClick={() => analyzeAward(award.id)}
               />
             </div>
+            <h3 className="text-xl font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">{award.name}</h3>
           </div>
           <div className="text-right">
             <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
@@ -217,13 +218,12 @@ const Results: React.FC<ResultsProps> = ({
             </div>
           )}
 
-        {award.sourceUrl && (
-          <div className="mt-6 flex justify-end">
+          {award.sourceUrl && (
             <a
               href={award.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 group/link transition-colors"
+              className="text-slate-400 hover:text-cyan-400 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
             >
               View Details{" "}
               <ChevronRight
@@ -231,17 +231,14 @@ const Results: React.FC<ResultsProps> = ({
                 className="group-hover/link:translate-x-1 transition-transform"
               />
             </a>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden">
-        {/* Decorative Glow */}
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
+    <div className="max-w-5xl mx-auto pb-20">
 
         <div className="flex flex-col md:flex-row justify-between items-center mb-0 gap-6 relative z-10">
           <div>
@@ -310,6 +307,23 @@ const Results: React.FC<ResultsProps> = ({
         )}
       </div>
 
+      {matches.length > 0 && (
+        <div className="grid grid-cols-3 gap-4 mb-10">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center">
+            <div className="text-3xl font-light text-emerald-400">{categorized.perfect.length}</div>
+            <div className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Perfect</div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center">
+            <div className="text-3xl font-light text-blue-400">{categorized.good.length}</div>
+            <div className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Good</div>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center">
+            <div className="text-3xl font-light text-amber-400">{categorized.partial.length}</div>
+            <div className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Partial</div>
+          </div>
+        </div>
+      )}
+
       {matches.length === 0 ? (
         <div className="bg-slate-800/50 border border-slate-700/50 shadow-xl rounded-3xl p-16 text-center backdrop-blur-md">
           <div className="text-slate-600 text-7xl mb-6 opacity-50">🔍</div>
@@ -322,7 +336,7 @@ const Results: React.FC<ResultsProps> = ({
           </p>
         </div>
       ) : (
-        <div className="space-y-12 pb-20">
+        <div className="space-y-8">
           {categorized.perfect.length > 0 && (
             <div>
               <h3 className="text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
@@ -331,7 +345,7 @@ const Results: React.FC<ResultsProps> = ({
                 </span>{" "}
                 Perfect Matches
               </h3>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-4">
                 {categorized.perfect.map(renderMatchCard)}
               </div>
             </div>
@@ -345,7 +359,7 @@ const Results: React.FC<ResultsProps> = ({
                 </span>{" "}
                 Good Matches
               </h3>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-4">
                 {categorized.good.map(renderMatchCard)}
               </div>
             </div>
@@ -359,7 +373,7 @@ const Results: React.FC<ResultsProps> = ({
                 </span>{" "}
                 Partial Matches
               </h3>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-4">
                 {categorized.partial.map(renderMatchCard)}
               </div>
             </div>
