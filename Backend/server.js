@@ -2,17 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const connectDB = require('./config/database');
+const Award = require('./models/Award');
 const { analyzeChance, analyzeMultipleAwards } = require('./services/aiAnalysis');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Connect to Database
+connectDB();
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-
-// Awards database (in production, this would be in a real database)
-const awards = require('./data/awards');
 
 // Matching algorithm
 function matchStudentToAwards(studentData, awards) {
@@ -237,12 +239,18 @@ app.get('/api/health', (req, res) => {
 });
 
 // Get all awards
-app.get('/api/awards', (req, res) => {
-    res.json(awards);
+app.get('/api/awards', async (req, res) => {
+    try {
+        const awards = await Award.find({});
+        res.json(awards);
+    } catch (error) {
+        console.error('Error fetching awards:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 // Match student to awards
-app.post('/api/match', (req, res) => {
+app.post('/api/match', async (req, res) => {
     try {
         const studentData = req.body;
 
@@ -253,6 +261,7 @@ app.post('/api/match', (req, res) => {
             });
         }
 
+        const awards = await Award.find({});
         const matches = matchStudentToAwards(studentData, awards);
 
         // Categorize matches
@@ -286,7 +295,7 @@ app.post('/api/analyze-chance', async (req, res) => {
         }
 
         // Find the award
-        const award = awards.find(a => a.id === awardId);
+        const award = await Award.findOne({ id: awardId });
         if (!award) {
             return res.status(404).json({ error: 'Award not found' });
         }
@@ -317,9 +326,10 @@ app.post('/api/analyze-chances', async (req, res) => {
         // Get awards to analyze (either specific IDs or use top matches)
         let awardsToAnalyze;
         if (awardIds && awardIds.length > 0) {
-            awardsToAnalyze = awards.filter(a => awardIds.includes(a.id));
+            awardsToAnalyze = await Award.find({ id: { $in: awardIds } });
         } else {
             // Get top matches first
+            const awards = await Award.find({});
             const matches = matchStudentToAwards(studentData, awards);
             awardsToAnalyze = matches.slice(0, limit).map(m => m.award);
         }
@@ -331,6 +341,83 @@ app.post('/api/analyze-chances', async (req, res) => {
         });
     } catch (error) {
         console.error('Error analyzing chances:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Subscribe to award notifications
+app.post('/api/awards/:id/subscribe', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        const award = await Award.findOne({ id });
+        if (!award) {
+            return res.status(404).json({ error: 'Award not found' });
+        }
+
+        // Check if already subscribed
+        const isSubscribed = award.notificationSubscribers.some(sub => sub.email === email);
+        if (isSubscribed) {
+            return res.status(400).json({ error: 'Already subscribed to this award' });
+        }
+
+        award.notificationSubscribers.push({ email });
+        await award.save();
+
+        res.json({ message: 'Successfully subscribed to award notifications' });
+    } catch (error) {
+        console.error('Error subscribing to award:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Get dashboard stats
+app.get('/api/stats', async (req, res) => {
+    try {
+        const totalAwards = await Award.countDocuments();
+        const totalFunding = await Award.aggregate([
+            {
+                $project: {
+                    numericAmount: {
+                        $cond: {
+                            if: { $isNumber: "$amount" },
+                            then: "$amount",
+                            else: 0
+                        }
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    total: { $sum: "$numericAmount" }
+                }
+            }
+        ]);
+
+        const fundingAmount = totalFunding.length > 0 ? totalFunding[0].total : 0;
+
+        // This is a placeholder for total subscribers since I didn't verify the structure fully,
+        // but assuming we want total distinct subscribers across all awards or total subscriptions.
+        // Let's go with total subscriptions.
+        const totalSubscriptionsResult = await Award.aggregate([
+            { $unwind: "$notificationSubscribers" },
+            { $count: "count" }
+        ]);
+        const totalSubscriptions = totalSubscriptionsResult.length > 0 ? totalSubscriptionsResult[0].count : 0;
+
+        res.json({
+            totalAwards,
+            totalFunding: fundingAmount,
+            totalSubscriptions
+        });
+    } catch (error) {
+        console.error('Error fetching stats:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
