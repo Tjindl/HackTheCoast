@@ -2,7 +2,6 @@
 
 AwardScope is an AI-powered financial aid discovery platform designed to help students unlock their funding potential. By leveraging advanced matching algorithms and generative AI, AwardScope connects students with high-value scholarships and bursaries they actually qualify for—and helps them write the winning essays.
 
-![AwardScope UI](./Frontend/src/assets/preview.png)
 
 ## ✨ Key Features
 
