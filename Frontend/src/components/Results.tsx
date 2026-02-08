@@ -118,13 +118,10 @@ const Results: React.FC<ResultsProps> = ({
     try {
       const defaultUrl = import.meta.env.PROD ? "" : "http://localhost:3001";
       const apiUrl = import.meta.env.VITE_API_URL || defaultUrl;
-      const response = await axios.post(
-        `${apiUrl}/api/generate-essay`,
-        {
-          studentData,
-          awardId,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/api/generate-essay`, {
+        studentData,
+        awardId,
+      });
 
       setEssayGuide({ guide: response.data, match });
     } catch (error) {
@@ -146,10 +143,12 @@ const Results: React.FC<ResultsProps> = ({
     let matchLevelText = "Perfect Match";
 
     if (matchScore < 90 && matchScore >= 60) {
-      matchLevelColor = "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30";
+      matchLevelColor =
+        "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30";
       matchLevelText = "Good Match";
     } else if (matchScore < 60) {
-      matchLevelColor = "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30";
+      matchLevelColor =
+        "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30";
       matchLevelText = "Partial Match";
     }
 
@@ -193,7 +192,7 @@ const Results: React.FC<ResultsProps> = ({
                 ) : (
                   <PenTool size={12} />
                 )}
-                {isEssayLoading ? "Drafting..." : "Draft Essay"}
+                {isEssayLoading ? "DRAFTING..." : "DRAFT ESSAY"}
               </button>
             </div>
           </div>
@@ -223,10 +222,12 @@ const Results: React.FC<ResultsProps> = ({
                 {matchReasons.map((reason, idx) => (
                   <li
                     key={idx}
-                    className="text-sm font-medium text-emerald-900/80 dark:text-emerald-100/80 flex items-start"
+                    className="text-sm font-medium text-emerald-900/80 dark:text-emerald-100/80 flex items-start leading-tight"
                   >
-                    <span className="text-emerald-500 mr-2 mt-1.5 text-[0.6rem]">●</span>
-                    {reason}
+                    <span className="text-emerald-500 mr-2 flex h-5 items-center text-[0.6rem]">
+                      ●
+                    </span>
+                    <span className="flex-1">{reason}</span>
                   </li>
                 ))}
               </ul>
@@ -244,7 +245,9 @@ const Results: React.FC<ResultsProps> = ({
                     key={idx}
                     className="text-sm font-medium text-amber-900/80 dark:text-amber-100/80 flex items-start"
                   >
-                    <span className="text-amber-500 mr-2 mt-1.5 text-[0.6rem]">●</span>
+                    <span className="text-amber-500 mr-2 mt-1.5 text-[0.6rem]">
+                      ●
+                    </span>
                     {req}
                   </li>
                 ))}
@@ -272,8 +275,6 @@ const Results: React.FC<ResultsProps> = ({
     );
   };
 
-
-
   return (
     <div className="max-w-6xl mx-auto">
       <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 mb-12 shadow-2xl relative overflow-hidden transition-all duration-500 group hover:shadow-cyan-500/10">
@@ -281,7 +282,10 @@ const Results: React.FC<ResultsProps> = ({
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-500/20 dark:bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse" style={{ animationDelay: "2s" }} />
+        <div
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
 
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 relative z-10">
           <div>
@@ -306,13 +310,17 @@ const Results: React.FC<ResultsProps> = ({
                 </>
               ) : (
                 <>
-                  <BarChart2 size={20} className="group-hover:scale-110 transition-transform" /> AI Analyze Top 5
+                  <BarChart2
+                    size={20}
+                    className="group-hover:scale-110 transition-transform"
+                  />{" "}
+                  AI Analyze Top 5
                 </>
               )}
             </button>
             <button
               onClick={onReset}
-              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-4 px-8 rounded-2xl transition-all duration-200 flex items-center gap-3 hover:-translate-y-1"
+              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 font-bold py-4 px-8 rounded-2xl transition-all duration-200 flex items-center gap-3 hover:-translate-y-1"
             >
               <RefreshCw size={20} /> Start Over
             </button>
@@ -354,7 +362,9 @@ const Results: React.FC<ResultsProps> = ({
 
       {matches.length === 0 ? (
         <div className="bg-white/50 border border-slate-200 shadow-xl rounded-3xl p-16 text-center backdrop-blur-md dark:bg-slate-800/50 dark:border-slate-700/50">
-          <div className="text-slate-400 text-7xl mb-6 opacity-50 dark:text-slate-600">🔍</div>
+          <div className="text-slate-400 text-7xl mb-6 opacity-50 dark:text-slate-600">
+            🔍
+          </div>
           <h3 className="text-2xl font-bold text-slate-800 mb-3 dark:text-slate-200">
             No matches found
           </h3>

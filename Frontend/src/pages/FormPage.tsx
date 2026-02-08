@@ -59,7 +59,11 @@ export default function FormPage({
     } catch (err) {
       console.error("Error fetching matches:", err);
       if (axios.isAxiosError(err)) {
-        setError(`Failed to find matches: ${err.message}. ${err.response?.data?.error || ''}`);
+        setError(
+          `Failed to find matches: ${err.message}. ${
+            err.response?.data?.error || ""
+          }`
+        );
       } else {
         setError("Failed to find matches. Please try again (Unknown Error).");
       }
@@ -90,7 +94,7 @@ export default function FormPage({
             <img
               src="/logo-transparent.png"
               alt="AwardScope Logo"
-              className="h-16 w-auto object-contain"
+              className="h-24 w-auto object-contain"
             />
           </div>
           <button

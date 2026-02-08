@@ -43,10 +43,10 @@ export default function ChanceBadge({
     return (
       <button
         onClick={onClick}
-        className="inline-flex text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1.5  text-s bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/20 text-xs px-3 py-1.5 rounded-lg font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-sm"
       >
         <svg
-          className="w-4 h-4 mr-1"
+          className="w-3.5 h-3.5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

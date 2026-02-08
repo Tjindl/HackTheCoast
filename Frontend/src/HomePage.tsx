@@ -74,12 +74,12 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
                     <div className="relative z-10">
                         {/* Header Row */}
-                        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-between gap-6 mb-16">
+                        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-between gap-6 mb-8">
                             <div className="flex items-center gap-4 group cursor-default">
                                 <img
                                     src="/logo-transparent.png"
                                     alt="AwardScope Logo"
-                                    className="h-24 w-auto object-contain"
+                                    className="h-36 w-auto object-contain"
                                 />
                             </div>
                             <motion.div
@@ -201,7 +201,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -5 }}
-                        className="lg:col-span-2 rounded-[32px] border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60 relative overflow-hidden group"
+                        className="lg:col-span-2 h-fit rounded-[32px] border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Sparkles size={120} />
@@ -211,8 +211,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                                 <PenTool className="h-6 w-6" />
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">AI Essay Architect</h3>
-                            <p className="text-slate-600 dark:text-slate-300 text-lg mb-8">Generate personalized essay outlines, hooks, and talking points in seconds.</p>
-
+                            <p className="text-slate-600 dark:text-slate-300 text-lg ">Generate personalized essay outlines, hooks, and talking points in seconds.</p>
+{/* 
                             <div className="mt-auto bg-white/50 dark:bg-slate-800/50 rounded-xl p-4 border border-white/60 dark:border-slate-700 backdrop-blur-sm">
                                 <div className="flex items-center gap-2 mb-2">
                                     <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
@@ -223,7 +223,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                                     <div className="h-2 w-full bg-slate-200 rounded dark:bg-slate-700" />
                                     <div className="h-2 w-5/6 bg-slate-200 rounded dark:bg-slate-700" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </motion.div>
 
@@ -234,7 +234,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
                         whileHover={{ y: -5 }}
-                        className="rounded-[32px] border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60"
+                        className="flex flex-col rounded-[32px] h-full border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60"
                     >
                         <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-lg mb-6">
                             <Zap className="h-6 w-6" />
@@ -250,7 +250,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                         whileHover={{ y: -5 }}
-                        className="rounded-[32px] border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60"
+                        className="flex flex-col rounded-[32px] h-full border border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-xl dark:border-slate-700/50 dark:bg-slate-900/60"
                     >
                         <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-lg mb-6">
                             <TrendingUp className="h-6 w-6" />
@@ -289,8 +289,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                             },
                             {
                                 step: "02",
-                                title: "AI Analysis",
-                                desc: "Our engine scans 500+ awards to find your perfect matches.",
+                                title: "Find Matches",
+                                desc: "Our algorithm scans 500+ awards to find your perfect matches.",
                                 icon: <Sparkles />
                             },
                             {
