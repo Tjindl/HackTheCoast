@@ -1,4 +1,4 @@
-import { BarChart3, ShieldCheck, Sparkles, Star } from 'lucide-react';
+import { BarChart3, ShieldCheck, Sparkles } from 'lucide-react';
 import UniversitySelection from './components/UniversitySelection';
 
 interface HomePageProps {
