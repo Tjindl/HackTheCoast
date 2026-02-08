@@ -39,3 +39,22 @@ code {
 .animate-fade-in-up {
   animation: fadeInUp 0.4s ease-out forwards;
 }
+
+/* Custom Scrollbar for professional look */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

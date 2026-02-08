@@ -63,7 +63,7 @@ export default function FormPage({ onBack }: FormPageProps) {
   };
 
   return (
-    <div className="h-full relative font-sans text-slate-200 selection:bg-cyan-500/30 selection:text-white overflow-hidden">
+    <div className="h-full relative font-sans text-slate-200 selection:bg-cyan-500/30 selection:text-white overflow-hidden flex flex-col">
       <CosmicBackground />
 
       {/* Professional Navbar */}
@@ -82,7 +82,7 @@ export default function FormPage({ onBack }: FormPageProps) {
         </button>
       </header>
 
-      <main className="relative z-10 h-full flex flex-col items-center pt-24 pb-12 px-4 md:px-8 overflow-y-auto">
+      <main className="relative z-10 flex-1 w-full flex flex-col items-center pt-24 pb-12 px-4 md:px-8 overflow-y-auto custom-scrollbar">
         {error && (
           <div className="max-w-2xl mx-auto mb-8 animate-fade-in-up w-full">
             <div className="bg-red-500/10 border border-red-500/20 text-red-200 px-4 py-3 rounded-lg flex items-center gap-3 text-sm">
