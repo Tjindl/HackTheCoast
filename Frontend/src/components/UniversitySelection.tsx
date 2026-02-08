@@ -16,6 +16,30 @@ const universities = [
         name: 'Simon Fraser University',
         logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Simon_Fraser_University_Coat_of_Arms.svg/1200px-Simon_Fraser_University_Coat_of_Arms.svg.png',
         color: 'from-red-600 to-red-800'
+    },
+    {
+        id: 'University of Victoria',
+        name: 'University of Victoria',
+        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/University_of_Victoria_Coat_of_Arms.svg/1200px-University_of_Victoria_Coat_of_Arms.svg.png',
+        color: 'from-yellow-500 to-yellow-700'
+    },
+    {
+        id: 'British Columbia Institute of Technology',
+        name: 'BCIT',
+        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/36/BCIT_Logo.svg/1200px-BCIT_Logo.svg.png',
+        color: 'from-blue-800 to-blue-950'
+    },
+    {
+        id: 'University of Northern British Columbia',
+        name: 'UNBC',
+        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/University_of_Northern_British_Columbia_Coat_of_Arms.svg/1200px-University_of_Northern_British_Columbia_Coat_of_Arms.svg.png',
+        color: 'from-green-600 to-green-800'
+    },
+    {
+        id: 'Thompson Rivers University',
+        name: 'Thompson Rivers University',
+        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Thompson_Rivers_University_logo.svg/1200px-Thompson_Rivers_University_logo.svg.png',
+        color: 'from-orange-500 to-orange-700'
     }
 ];
 
