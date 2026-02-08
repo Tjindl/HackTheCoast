@@ -1,4 +1,101 @@
 // Awards database - Scraped from UBC Financial Aid official sources
+
+// ========== BC PROVINCIAL SCHOLARSHIPS ==========
+const bcProvincialScholarships = [
+    {
+        id: 'bc-excellence-scholarship',
+        name: 'BC Excellence Scholarship',
+        type: 'Scholarship',
+        amount: 'Variable',
+        description: 'Recognizes students graduating from BC high schools who demonstrate commitment to a particular career path and show community involvement and leadership skills. Aligns with BC\'s Skills for Jobs Blueprint to connect students with in-demand careers.',
+        category: 'Provincial Scholarship',
+        university: 'BC Provincial',
+        eligibility: {
+            provinceRequired: 'British Columbia',
+            requiredYear: [1],
+            graduatingYear: true,
+            citizenshipRequired: ['Canadian Citizen', 'Permanent Resident', 'Refugee'],
+            leadershipRequired: true,
+            communityInvolvement: true
+        },
+        applicationRequired: true,
+        sourceUrl: 'https://www2.gov.bc.ca/gov/content/education-training/k-12/support/scholarships/provincial-scholarships'
+    },
+    {
+        id: 'bc-achievement-scholarship',
+        name: 'BC Achievement Scholarship',
+        type: 'Scholarship',
+        amount: 'Variable',
+        description: 'Recognizes the top 8,000 graduates in British Columbia. The Ministry determines recipients based on achievement in Grades 10, 11, and 12 courses that satisfy BC Graduation Program requirements, including elective courses. Students do not apply for this scholarship.',
+        category: 'Provincial Scholarship',
+        university: 'BC Provincial',
+        eligibility: {
+            provinceRequired: 'British Columbia',
+            requiredYear: [1],
+            graduatingYear: true,
+            citizenshipRequired: ['Canadian Citizen', 'Permanent Resident', 'Refugee'],
+            automaticConsideration: true
+        },
+        applicationRequired: false,
+        sourceUrl: 'https://www2.gov.bc.ca/gov/content/education-training/k-12/support/scholarships/provincial-scholarships'
+    },
+    {
+        id: 'bc-pathway-teacher-education',
+        name: 'Pathway to Teacher Education Scholarship',
+        type: 'Scholarship',
+        amount: 5000,
+        description: 'Awarded to 20 outstanding high school graduates who have demonstrated a commitment and aptitude for a career path in K-12 teaching. Winners receive a $5,000 scholarship voucher to redeem when registered and attending an approved K-12 teacher education program at one of BC\'s nine Faculties of Education.',
+        category: 'Provincial Scholarship',
+        university: 'BC Provincial',
+        eligibility: {
+            provinceRequired: 'British Columbia',
+            requiredYear: [1],
+            graduatingYear: true,
+            careerPath: 'Teaching',
+            citizenshipRequired: ['Canadian Citizen', 'Permanent Resident', 'Refugee']
+        },
+        applicationRequired: true,
+        numberOfRecipients: 20,
+        sourceUrl: 'https://www2.gov.bc.ca/gov/content/education-training/k-12/support/scholarships/provincial-scholarships'
+    },
+    {
+        id: 'bc-district-authority-scholarship',
+        name: 'BC District/Authority Scholarship',
+        type: 'Scholarship',
+        amount: 'Variable',
+        description: 'Recognizes graduating BC students for excellence in their chosen area of interest or strength, including: Indigenous Languages and Culture, Fine Arts, Applied Design, Skills and Technologies, Physical Activity, International Languages, Community Service (Volunteer Activity), and Technical and Trades Training. Criteria determined by local school districts.',
+        category: 'Provincial Scholarship',
+        university: 'BC Provincial',
+        eligibility: {
+            provinceRequired: 'British Columbia',
+            requiredYear: [1],
+            graduatingYear: true,
+            citizenshipRequired: ['Canadian Citizen', 'Permanent Resident', 'Refugee']
+        },
+        applicationRequired: true,
+        areaOfExcellence: ['Indigenous Languages and Culture', 'Fine Arts', 'Applied Design, Skills and Technologies', 'Physical Activity', 'International Languages', 'Community Service', 'Technical and Trades Training'],
+        sourceUrl: 'https://www2.gov.bc.ca/gov/content/education-training/k-12/support/scholarships/provincial-scholarships'
+    },
+    {
+        id: 'bc-international-student-ambassador',
+        name: 'BC International Student Ambassador Scholarship',
+        type: 'Scholarship',
+        amount: 1250,
+        description: 'Available for international students who are graduating from a BC public school, independent school, or BC-certified offshore school and moving into a BC public post-secondary institution or a degree program at an authorized private degree-granting institution. Students must be nominated by the school district.',
+        category: 'Provincial Scholarship',
+        university: 'BC Provincial',
+        eligibility: {
+            provinceRequired: 'British Columbia',
+            requiredYear: [1],
+            graduatingYear: true,
+            citizenshipRequired: ['International Student'],
+            nominationRequired: true
+        },
+        applicationRequired: false,
+        sourceUrl: 'https://www2.gov.bc.ca/gov/content/education-training/k-12/support/scholarships/provincial-scholarships'
+    }
+];
+
 const ubcAwards = [
     // ========== AFFILIATION SCHOLARSHIPS ==========
 
@@ -1737,4 +1834,4 @@ const truAwards = [
     }
 ];
 
-module.exports = [...ubcAwardsWithUni, ...sfuAwards, ...uvicAwards, ...bcitAwards, ...unbcAwards, ...truAwards];
+module.exports = [...bcProvincialScholarships, ...ubcAwardsWithUni, ...sfuAwards, ...uvicAwards, ...bcitAwards, ...unbcAwards, ...truAwards];
