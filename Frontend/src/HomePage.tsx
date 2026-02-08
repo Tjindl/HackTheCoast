@@ -32,7 +32,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                         </div>
                         <div>
                             <p className="font-display text-lg font-semibold text-slate-900 dark:text-white">AwardScope</p>
-                            <p className="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Scholarship studio</p>
+                            <p className="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Financial Aid Support</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/70 dark:text-slate-300">
@@ -44,7 +44,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
                     <div className="text-center lg:text-left">
                         <span className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200/70 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700 shadow-sm dark:border-slate-600/70 dark:bg-slate-900/60 dark:text-slate-200 lg:mx-0">
-                            Scholarships, simplified
+                            Financial aid, simplified
                         </span>
 
                         <h1 className="font-display text-5xl md:text-6xl font-semibold leading-tight text-slate-900 dark:text-white">

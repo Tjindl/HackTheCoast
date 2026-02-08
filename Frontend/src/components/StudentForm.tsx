@@ -296,7 +296,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ university, onSubmit, loading
                                     <motion.h2
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 mb-4 flex items-center justify-center gap-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                                        className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 mb-4 flex items-center justify-center gap-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                                     >
                                         <GraduationCap className="text-cyan-400 w-10 h-10 drop-shadow-glow" />{" "}
                                         Academic Profile
@@ -427,7 +427,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ university, onSubmit, loading
                                     <motion.h2
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-cyan-300 mb-4 flex items-center justify-center gap-4"
+                                        className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-cyan-300 mb-4 flex items-center justify-center gap-4"
                                     >
                                         <User className="text-purple-400 w-10 h-10 drop-shadow-glow" />{" "}
                                         Personal Details
@@ -523,7 +523,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ university, onSubmit, loading
                                     <motion.h2
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-white to-cyan-300 mb-4 flex items-center justify-center gap-4"
+                                        className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-white to-cyan-300 mb-4 flex items-center justify-center gap-4"
                                     >
                                         <DollarSign className="text-emerald-400 w-10 h-10 drop-shadow-glow" />{" "}
                                         Financial Situation
@@ -596,7 +596,7 @@ const StudentForm: React.FC<StudentFormProps> = ({ university, onSubmit, loading
                                     <motion.h2
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-orange-300 mb-4 flex items-center justify-center gap-4"
+                                        className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-orange-300 mb-4 flex items-center justify-center gap-4"
                                     >
                                         <Users className="text-amber-400 w-10 h-10 drop-shadow-glow" />{" "}
                                         Affiliations
