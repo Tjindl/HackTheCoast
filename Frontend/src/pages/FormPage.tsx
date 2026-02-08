@@ -113,13 +113,19 @@ export default function FormPage({
         )}
 
         {matches === null || categorized === null || studentData === null ? (
-          <StudentForm
-            university={selectedUniversity}
-            onSubmit={handleFormSubmit}
-            loading={loading}
-          />
+          <div className="max-w-3xl mx-auto">
+            <StudentForm
+              university={selectedUniversity}
+              onSubmit={handleFormSubmit}
+              loading={loading}
+            />
+          </div>
         ) : (
-          <div className="animate-fade-in-up backdrop-blur-sm rounded-3xl p-4 md:p-8 border border-transparent dark:bg-slate-900/30 dark:border-white/10 shadow-none dark:shadow-2xl">
+          <div className="max-w-5xl mx-auto animate-fade-in-up backdrop-blur-3xl rounded-[2.5rem] p-6 md:p-10 border border-white/20 bg-white/5 dark:bg-slate-900/50 shadow-2xl relative overflow-hidden">
+            {/* Glass Reflections */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
+
             <Results
               matches={matches}
               categorized={categorized}

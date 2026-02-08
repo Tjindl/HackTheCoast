@@ -153,7 +153,7 @@ const StudentForm: React.FC<StudentFormProps> = ({
     }
   };
 
-  // Helper for cleaner card selection UI - Cosmic Style
+  // Helper for cleaner card selection UI - Cosmic Glass Style
   const SelectionCard = ({
     title,
     description,
@@ -168,23 +168,23 @@ const StudentForm: React.FC<StudentFormProps> = ({
     icon?: React.ReactNode;
   }) => (
     <motion.div
-      whileHover={{ scale: 1.02, rotateX: 2, rotateY: 2 }}
+      whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={onChange}
       className={`cursor-pointer border rounded-2xl p-5 transition-all duration-300 flex items-start space-x-4 backdrop-blur-md relative overflow-hidden group
         ${checked
-          ? "bg-cyan-50 border-cyan-500 shadow-md ring-1 ring-cyan-400/30 dark:bg-cyan-500/10 dark:border-cyan-500/50 dark:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-          : "bg-white/50 border-slate-200 hover:bg-white/80 hover:border-cyan-500/30 hover:shadow-lg dark:bg-slate-800/40 dark:border-slate-700/50 dark:hover:bg-slate-800/60"
+          ? "bg-cyan-500/10 border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)] ring-1 ring-cyan-400/30"
+          : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-lg dark:hover:bg-white/5"
         }`}
     >
       {/* Dynamic glow effect on hover */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out pointer-events-none" />
 
       <div
-        className={`mt-1 w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 relative z-10
+        className={`mt-1 w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 relative z-10
         ${checked
             ? "border-cyan-400 bg-cyan-400 text-slate-900 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
-            : "border-slate-500 text-transparent"
+            : "border-slate-400 dark:border-slate-600 text-transparent group-hover:border-cyan-400/50"
           }`}
       >
         <Check size={14} strokeWidth={3} />
@@ -194,24 +194,24 @@ const StudentForm: React.FC<StudentFormProps> = ({
           {icon && (
             <span
               className={`${checked
-                ? "text-cyan-300"
+                ? "text-cyan-400"
                 : "text-slate-400 group-hover:text-cyan-200"
-                } transition-colors`}
+                } transition-colors duration-300`}
             >
               {icon}
             </span>
           )}
           <h4
-            className={`font-semibold text-lg tracking-wide ${checked
-              ? "text-cyan-700 dark:text-cyan-100"
-              : "text-slate-700 group-hover:text-slate-900 dark:text-slate-200 dark:group-hover:text-white"
+            className={`font-bold text-lg tracking-wide ${checked
+              ? "text-cyan-700 dark:text-cyan-300"
+              : "text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white"
               }`}
           >
             {title}
           </h4>
         </div>
         {description && (
-          <p className="text-sm text-slate-500 mt-1 leading-relaxed group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-300 transition-colors">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
             {description}
           </p>
         )}
@@ -303,17 +303,22 @@ const StudentForm: React.FC<StudentFormProps> = ({
 
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-700/50 relative isolate transition-colors duration-300"
+        className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-3xl shadow-2xl shadow-slate-200/10 dark:shadow-black/50 rounded-[2.5rem] overflow-hidden border border-white/20 dark:border-white/10 relative isolate transition-colors duration-300"
         initial={{ opacity: 0, y: 50, rotateX: 10 }}
         animate={{ opacity: 1, y: 0, rotateX: 0 }}
         transition={{ duration: 0.8, type: "spring" }}
       >
-        {/* Animated Form Header Glow */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-80 animate-pulse" />
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-cyan-500/20 dark:bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
+        {/* Glass Reflections & Glows */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-30" />
+
+        {/* Animated Background Orbs */}
+        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/20 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDelay: "2s" }} />
 
         <AnimatePresence mode="wait" custom={direction}>
+
           <motion.div
             key={currentStep}
             custom={direction}
@@ -327,41 +332,41 @@ const StudentForm: React.FC<StudentFormProps> = ({
             {/* Step 1: Academic Information */}
             {currentStep === 1 && (
               <div className="space-y-10">
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 relative">
                   <motion.h2
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-700 to-purple-700 dark:from-cyan-300 dark:via-white dark:to-purple-300 mb-4 flex items-center justify-center gap-4 drop-shadow-sm dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    className="font-display text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-500 dark:from-white dark:to-white/50 mb-4 flex items-center justify-center gap-4 drop-shadow-sm"
                   >
-                    <GraduationCap className="text-cyan-700 dark:text-cyan-400 w-10 h-10 drop-shadow-sm dark:drop-shadow-glow" />{" "}
+                    <GraduationCap className="text-cyan-600 dark:text-cyan-400 w-12 h-12" />{" "}
                     Academic Profile
                   </motion.h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg tracking-wide">
+                  <p className="text-slate-600 dark:text-slate-400 text-lg tracking-wide font-medium">
                     Tell us about your academic journey.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3 group">
-                    <label className="text-xs font-bold text-cyan-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 group-focus-within:text-cyan-400 transition-all">
+                    <label className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                       Campus Location
                     </label>
                     <div className="relative flex items-center">
-                      <Building className="absolute left-5 text-slate-500 pointer-events-none group-focus-within:text-cyan-400 transition-colors w-5 h-5" />
+                      <Building className="absolute left-5 text-slate-400 group-focus-within:text-cyan-500 transition-colors w-5 h-5 z-10" />
                       <select
                         name="campus"
                         value={formData.campus}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-900 hover:bg-white/80 cursor-pointer dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-100 dark:hover:bg-slate-800/80"
+                        className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all outline-none appearance-none font-medium text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer backdrop-blur-md"
                       >
-                        <option value="Vancouver">Vancouver Campus</option>
-                        <option value="Okanagan">Okanagan Campus</option>
+                        <option value="Vancouver" className="text-slate-900 bg-white">Vancouver Campus</option>
+                        <option value="Okanagan" className="text-slate-900 bg-white">Okanagan Campus</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="space-y-3 group">
-                    <label className="text-xs font-bold text-cyan-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 group-focus-within:text-cyan-400 transition-all">
+                    <label className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                       Current Year
                     </label>
                     <div className="relative flex items-center">
@@ -369,10 +374,10 @@ const StudentForm: React.FC<StudentFormProps> = ({
                         name="year"
                         value={formData.year}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-900 hover:bg-white/80 cursor-pointer dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-100 dark:hover:bg-slate-800/80"
+                        className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all outline-none appearance-none font-medium text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer backdrop-blur-md"
                       >
                         {[1, 2, 3, 4, 5].map((y) => (
-                          <option key={y} value={y}>
+                          <option key={y} value={y} className="text-slate-900 bg-white">
                             {y === 5
                               ? "5+ Year"
                               : `${y}${y === 1
@@ -386,7 +391,7 @@ const StudentForm: React.FC<StudentFormProps> = ({
                           </option>
                         ))}
                       </select>
-                      <div className="absolute left-5 top-4.5 text-slate-500 font-bold w-5 h-5 flex items-center justify-center pointer-events-none text-xs border border-slate-600 rounded-md group-focus-within:text-cyan-400 group-focus-within:border-cyan-400">
+                      <div className="absolute left-5 top-1/2 -translate-y-1/2 text-cyan-600 dark:text-cyan-400 font-bold w-6 h-6 flex items-center justify-center pointer-events-none text-xs border-2 border-cyan-600/30 dark:border-cyan-400/30 rounded-lg group-focus-within:border-cyan-500 bg-cyan-500/10">
                         {formData.year}
                       </div>
                     </div>
@@ -394,7 +399,7 @@ const StudentForm: React.FC<StudentFormProps> = ({
                 </div>
 
                 <div className="space-y-3 group">
-                  <label className="text-xs font-bold text-cyan-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 group-focus-within:text-cyan-400 transition-all">
+                  <label className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                     Faculty / Program
                   </label>
                   <div className="relative flex items-center">
@@ -402,9 +407,9 @@ const StudentForm: React.FC<StudentFormProps> = ({
                       name="faculty"
                       value={formData.faculty}
                       onChange={handleChange}
-                      className="w-full p-4 pl-14 bg-slate-800/50 border border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none appearance-none font-medium text-slate-100 hover:bg-slate-800/80 cursor-pointer"
+                      className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all outline-none appearance-none font-medium text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer backdrop-blur-md"
                     >
-                      <option value="">Select your faculty...</option>
+                      <option value="" className="text-slate-900 bg-white">Select your faculty...</option>
                       {[
                         "Arts",
                         "Science",
@@ -421,17 +426,17 @@ const StudentForm: React.FC<StudentFormProps> = ({
                       ]
                         .sort()
                         .map((f) => (
-                          <option key={f} value={f}>
+                          <option key={f} value={f} className="text-slate-900 bg-white">
                             {f}
                           </option>
                         ))}
                     </select>
-                    <BookOpen className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
+                    <BookOpen className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-500 transition-colors w-5 h-5 z-10" />
                   </div>
                 </div>
 
                 <div className="space-y-3 group">
-                  <label className="text-xs font-bold text-cyan-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 group-focus-within:text-cyan-400 transition-all">
+                  <label className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                     Cumulative GPA (0-4.33)
                   </label>
                   <div className="relative flex items-center">
@@ -444,10 +449,10 @@ const StudentForm: React.FC<StudentFormProps> = ({
                       max="4.33"
                       step="0.01"
                       placeholder="e.g., 3.8"
-                      className="w-full p-4 pl-14 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all outline-none font-medium text-slate-900 placeholder-slate-400 hover:bg-white/80 dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-100 dark:placeholder-slate-600 dark:hover:bg-slate-800/80"
+                      className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all outline-none font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 hover:bg-white/80 dark:hover:bg-white/10 backdrop-blur-md"
                     />
-                    <Award className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
-                    <div className="absolute right-5 top-4.5 text-slate-500 text-sm font-medium bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+                    <Award className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-cyan-500 transition-colors w-5 h-5" />
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-sm font-bold bg-slate-200 dark:bg-white/10 px-2 py-1 rounded-lg">
                       / 4.33
                     </div>
                   </div>
@@ -458,23 +463,23 @@ const StudentForm: React.FC<StudentFormProps> = ({
             {/* Step 2: Personal Details */}
             {currentStep === 2 && (
               <div className="space-y-10">
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 relative">
                   <motion.h2
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-cyan-700 dark:from-purple-300 dark:via-white dark:to-cyan-300 mb-4 flex items-center justify-center gap-4"
+                    className="font-display text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-purple-700 to-purple-500 dark:from-purple-300 dark:to-purple-100 mb-4 flex items-center justify-center gap-4 drop-shadow-sm"
                   >
-                    <User className="text-purple-700 dark:text-purple-400 w-10 h-10 drop-shadow-sm dark:drop-shadow-glow" />{" "}
+                    <User className="text-purple-600 dark:text-purple-400 w-12 h-12" />{" "}
                     Personal Details
                   </motion.h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                  <p className="text-slate-600 dark:text-slate-400 text-lg tracking-wide font-medium">
                     Help us verify your eligibility criteria.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-3 group">
-                    <label className="text-xs font-bold text-purple-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
+                    <label className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                       Citizenship Status
                     </label>
                     <div className="relative flex items-center">
@@ -482,25 +487,25 @@ const StudentForm: React.FC<StudentFormProps> = ({
                         name="citizenshipStatus"
                         value={formData.citizenshipStatus}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all outline-none appearance-none font-medium text-slate-900 hover:bg-white/80 cursor-pointer dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-100 dark:hover:bg-slate-800/80"
+                        className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all outline-none appearance-none font-medium text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer backdrop-blur-md"
                       >
-                        <option value="Canadian Citizen">
+                        <option value="Canadian Citizen" className="text-slate-900 bg-white">
                           Canadian Citizen
                         </option>
-                        <option value="Permanent Resident">
+                        <option value="Permanent Resident" className="text-slate-900 bg-white">
                           Permanent Resident
                         </option>
-                        <option value="Refugee">Refugee</option>
-                        <option value="International">
+                        <option value="Refugee" className="text-slate-900 bg-white">Refugee</option>
+                        <option value="International" className="text-slate-900 bg-white">
                           International Student
                         </option>
                       </select>
-                      <Globe className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-purple-400" />
+                      <Globe className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-purple-500 transition-colors w-5 h-5 z-10" />
                     </div>
                   </div>
 
                   <div className="space-y-3 group">
-                    <label className="text-xs font-bold text-purple-500 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
+                    <label className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest ml-1 opacity-80 group-focus-within:opacity-100 transition-all">
                       Gender Identity
                     </label>
                     <div className="relative flex items-center">
@@ -508,15 +513,15 @@ const StudentForm: React.FC<StudentFormProps> = ({
                         name="gender"
                         value={formData.gender || ""}
                         onChange={handleChange}
-                        className="w-full p-4 pl-14 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-purple-500/50 focus:border-purple-400 transition-all outline-none appearance-none font-medium text-slate-900 hover:bg-white/80 cursor-pointer dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-slate-100 dark:hover:bg-slate-800/80"
+                        className="w-full p-4 pl-14 bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all outline-none appearance-none font-medium text-slate-900 dark:text-white hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer backdrop-blur-md"
                       >
-                        <option value="">Select Gender...</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Non-binary">Non-binary</option>
-                        <option value="Two-Spirit">Two-Spirit</option>
+                        <option value="" className="text-slate-900 bg-white">Select Gender...</option>
+                        <option value="Male" className="text-slate-900 bg-white">Male</option>
+                        <option value="Female" className="text-slate-900 bg-white">Female</option>
+                        <option value="Non-binary" className="text-slate-900 bg-white">Non-binary</option>
+                        <option value="Two-Spirit" className="text-slate-900 bg-white">Two-Spirit</option>
                       </select>
-                      <User className="absolute left-5 top-4.5 text-slate-500 w-5 h-5 pointer-events-none group-focus-within:text-purple-400" />
+                      <User className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-purple-500 transition-colors w-5 h-5 z-10" />
                     </div>
                   </div>
                 </div>
@@ -554,16 +559,16 @@ const StudentForm: React.FC<StudentFormProps> = ({
             {/* Step 3: Financial Information */}
             {currentStep === 3 && (
               <div className="space-y-10">
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 relative">
                   <motion.h2
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-700 to-cyan-700 dark:from-emerald-300 dark:via-white dark:to-cyan-300 mb-4 flex items-center justify-center gap-4"
+                    className="font-display text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-emerald-700 to-teal-500 dark:from-emerald-300 dark:to-teal-100 mb-4 flex items-center justify-center gap-4 drop-shadow-sm"
                   >
-                    <DollarSign className="text-emerald-700 dark:text-emerald-400 w-10 h-10 drop-shadow-sm dark:drop-shadow-glow" />{" "}
+                    <DollarSign className="text-emerald-600 dark:text-emerald-400 w-12 h-12" />{" "}
                     Financial Situation
                   </motion.h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                  <p className="text-slate-600 dark:text-slate-400 text-lg tracking-wide font-medium">
                     We use this to find needs-based bursaries.
                   </p>
                 </div>
@@ -571,7 +576,7 @@ const StudentForm: React.FC<StudentFormProps> = ({
                 <div className="grid grid-cols-1 gap-5">
                   <SelectionCard
                     title="Government Student Loan Recipient"
-                    description="receiving full-time government student loans for the current year"
+                    description="Receiving full-time government student loans for the current year"
                     checked={formData.hasStudentLoan}
                     onChange={() =>
                       setFormData((p) => ({
@@ -627,16 +632,16 @@ const StudentForm: React.FC<StudentFormProps> = ({
             {/* Step 4: Affiliations */}
             {currentStep === 4 && (
               <div className="space-y-10">
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 relative">
                   <motion.h2
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="font-display text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-orange-700 dark:from-amber-300 dark:via-white dark:to-orange-300 mb-4 flex items-center justify-center gap-4"
+                    className="font-display text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-700 to-orange-500 dark:from-amber-300 dark:to-orange-100 mb-4 flex items-center justify-center gap-4 drop-shadow-sm"
                   >
-                    <Users className="text-amber-700 dark:text-amber-400 w-10 h-10 drop-shadow-sm dark:drop-shadow-glow" />{" "}
+                    <Users className="text-amber-600 dark:text-amber-400 w-12 h-12" />{" "}
                     Affiliations
                   </motion.h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                  <p className="text-slate-600 dark:text-slate-400 text-lg tracking-wide font-medium">
                     Select any communities or groups you belong to.
                   </p>
                 </div>
@@ -676,11 +681,8 @@ const StudentForm: React.FC<StudentFormProps> = ({
                     return (
                       <motion.div
                         key={item.key}
-                        whileHover={{
-                          scale: 1.05,
-                          borderColor: "rgba(6, 182, 212, 0.5)",
-                        }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => {
                           setFormData((prev) => ({
                             ...prev,
@@ -690,35 +692,37 @@ const StudentForm: React.FC<StudentFormProps> = ({
                             },
                           }));
                         }}
-                        className={`cursor-pointer p-4 rounded-xl border transition-all duration-300 flex items-center justify-between backdrop-blur-sm
+                        className={`cursor-pointer p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between backdrop-blur-md
                           ${isSelected
-                            ? "border-cyan-500 bg-cyan-100/50 shadow-md dark:bg-cyan-900/40 dark:shadow-[0_0_15px_rgba(6,182,212,0.2)]"
-                            : "border-slate-200 bg-white/50 hover:bg-white/80 hover:border-slate-300 dark:border-slate-700/50 dark:bg-slate-800/30 dark:hover:bg-slate-700/50 dark:hover:border-slate-500"
+                            ? "bg-cyan-500/10 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.15)] ring-1 ring-cyan-400/30"
+                            : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-lg dark:hover:bg-white/5"
                           }`}
                       >
                         <span
-                          className={`font-semibold tracking-wide ${isSelected ? "text-cyan-700 dark:text-cyan-200" : "text-slate-600 dark:text-slate-400"
+                          className={`font-semibold tracking-wide ${isSelected ? "text-cyan-700 dark:text-cyan-200" : "text-slate-600 dark:text-slate-300"
                             }`}
                         >
                           {item.label}
                         </span>
                         {isSelected && (
-                          <Check className="text-cyan-400 w-5 h-5 drop-shadow-[0_0_5px_rgba(34,211,238,0.8)]" />
+                          <div className="w-6 h-6 rounded-full bg-cyan-400 text-slate-900 flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+                            <Check size={14} strokeWidth={3} />
+                          </div>
                         )}
                       </motion.div>
                     );
                   })}
                 </div>
 
-                <div className="mt-8 bg-blue-50 border border-blue-200 rounded-2xl p-6 flex items-start gap-4 backdrop-blur-md dark:bg-blue-900/20 dark:border-blue-500/30">
-                  <div className="bg-blue-100 p-2 rounded-full ring-1 ring-blue-200 dark:bg-blue-500/20 dark:ring-blue-400/30">
-                    <Sparkles className="text-blue-600 dark:text-blue-400 w-6 h-6 animate-pulse" />
+                <div className="mt-8 bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6 flex items-start gap-4 backdrop-blur-md">
+                  <div className="bg-blue-500/20 p-2 rounded-lg ring-1 ring-blue-400/30">
+                    <Sparkles className="text-blue-500 w-6 h-6 animate-pulse" />
                   </div>
                   <div>
-                    <h5 className="font-bold text-blue-900 dark:text-blue-200 mb-1 tracking-wide">
+                    <h5 className="font-bold text-blue-700 dark:text-blue-300 mb-1 tracking-wide">
                       Did you know?
                     </h5>
-                    <p className="text-blue-700/80 dark:text-blue-200/70 text-sm leading-relaxed">
+                    <p className="text-blue-600/80 dark:text-blue-200/70 text-sm leading-relaxed font-medium">
                       Most awards are based on merit or financial need.
                       Affiliations are just extra bonuses! Don't worry if you
                       don't check any of these boxes.
@@ -731,13 +735,13 @@ const StudentForm: React.FC<StudentFormProps> = ({
         </AnimatePresence>
 
         {/* Footer / Navigation Actions - Glassmorphic Footer */}
-        <div className="px-8 md:px-12 py-8 bg-slate-100/50 border-t border-slate-200 backdrop-blur-xl flex justify-between items-center relative z-20 dark:bg-slate-900/50 dark:border-slate-700/50">
+        <div className="px-8 md:px-12 py-8 bg-white/5 border-t border-white/10 backdrop-blur-xl flex justify-between items-center relative z-20">
           {currentStep > 1 ? (
             <button
               type="button"
               onClick={prevStep}
               disabled={isStepChanging}
-              className="flex items-center gap-2 text-slate-400 font-semibold px-6 py-3 rounded-xl hover:bg-slate-800 hover:text-white transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-bold px-6 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft
                 size={20}
@@ -754,16 +758,16 @@ const StudentForm: React.FC<StudentFormProps> = ({
               type="button"
               onClick={nextStep}
               disabled={isStepChanging}
-              className="relative group overflow-hidden bg-cyan-600 text-white font-bold py-3.5 px-10 rounded-2xl shadow-[0_10px_20px_-10px_rgba(8,145,178,0.5)] transition-all duration-300 hover:shadow-[0_20px_30px_-10px_rgba(8,145,178,0.6)] hover:-translate-y-1 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:shadow-none"
+              className="relative group overflow-hidden bg-cyan-500 text-white font-black py-4 px-10 rounded-2xl shadow-[0_10px_20px_-10px_rgba(6,182,212,0.5)] transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(6,182,212,0.6)] hover:-translate-y-1 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:shadow-none"
             >
-              <span className="relative z-10 flex items-center gap-2 text-lg tracking-wide">
+              <span className="relative z-10 flex items-center gap-2 text-lg tracking-wide uppercase">
                 Next Step{" "}
                 <ChevronRight
                   size={20}
                   className="group-hover:translate-x-1 transition-transform"
                 />
               </span>
-              <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+              <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmer" />
             </button>
           ) : (
             <button
@@ -771,11 +775,11 @@ const StudentForm: React.FC<StudentFormProps> = ({
               disabled={loading || isStepChanging}
               className={`
                 relative overflow-hidden
-                bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-4 px-12 rounded-2xl 
+                bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black py-4 px-12 rounded-2xl 
                 shadow-[0_10px_30px_-10px_rgba(16,185,129,0.5)] 
-                hover:shadow-[0_20px_40px_-5px_rgba(16,185,129,0.7)] hover:-translate-y-1 hover:brightness-110
+                hover:shadow-[0_20px_50px_-10px_rgba(16,185,129,0.6)] hover:-translate-y-1 hover:brightness-110
                 transition-all duration-300 transform
-                disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 text-lg tracking-wider
+                disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 text-lg tracking-wider uppercase
               `}
             >
               {loading ? (
