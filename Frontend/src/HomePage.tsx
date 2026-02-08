@@ -79,7 +79,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                                 <img
                                     src="/logo-transparent.png"
                                     alt="AwardScope Logo"
-                                    className="h-36 w-auto object-contain"
+                                    className="h-36 w-auto object-contain dark:invert-0 invert"
                                 />
                             </div>
                             <motion.div
@@ -212,7 +212,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                             </div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">AI Essay Architect</h3>
                             <p className="text-slate-600 dark:text-slate-300 text-lg ">Generate personalized essay outlines, hooks, and talking points in seconds.</p>
-{/* 
+                            {/* 
                             <div className="mt-auto bg-white/50 dark:bg-slate-800/50 rounded-xl p-4 border border-white/60 dark:border-slate-700 backdrop-blur-sm">
                                 <div className="flex items-center gap-2 mb-2">
                                     <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
@@ -341,7 +341,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                             Ready to fund your education?
                         </h2>
                         <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">
-                            Join thousands of UBC students discovering millions in unclaimed financial aid.
+                            Join thousands of students discovering millions in unclaimed financial aid.
                         </p>
 
                         <div id="get-started" className="bg-slate-50 dark:bg-slate-900/10 p-2 rounded-[24px] backdrop-blur-sm border border-slate-100 dark:border-slate-900/10 inline-block w-full max-w-xl">
