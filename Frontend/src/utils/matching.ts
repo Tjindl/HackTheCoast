@@ -60,15 +60,13 @@ function evaluateMatch(
 
   // Check faculty
   if (criteria.requiredFaculty && studentData.faculty) {
-    if (criteria.requiredFaculty.some(f =>
-      f.toLowerCase() === studentData.faculty.toLowerCase()
-    )) {
+    if (criteria.requiredFaculty.includes(studentData.faculty)) {
       matchReasons.push(`Matches your faculty (${studentData.faculty})`);
     } else {
       missingRequirements.push(`Requires faculty: ${criteria.requiredFaculty.join(' or ')}`);
       matchScore -= 40;
     }
-  }
+}
 
   // Check GPA
   if (criteria.minGPA) {

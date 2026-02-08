@@ -147,7 +147,7 @@ const Results: React.FC<ResultsProps> = ({
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+            <div className="font-display text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
               {formatAmount(award.amount)}
             </div>
             {award.applicationDeadline && (
@@ -245,9 +245,9 @@ const Results: React.FC<ResultsProps> = ({
 
         <div className="flex flex-col md:flex-row justify-between items-center mb-0 gap-6 relative z-10">
           <div>
-            <h2 className="text-4xl font-black text-white tracking-tight mb-2">
+            <h2 className="font-display text-4xl font-black text-white tracking-tight mb-2">
               Your{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+              <span className="font-display text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
                 Matches
               </span>
             </h2>

@@ -39,7 +39,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <Award className="h-6 w-6" />
             </div>
             <div>
-              <p className="font-display text-lg font-semibold text-slate-900 dark:text-white">
+              <p className="font-display text-lg font-bold text-slate-900 dark:text-white">
                 AwardScope
               </p>
               <p className="text-xs uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">
@@ -59,7 +59,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               Financial aid, simplified
             </span>
 
-            <h1 className="font-display text-5xl md:text-6xl font-semibold leading-tight text-slate-900 dark:text-white">
+            <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
               <span className="bg-gradient-to-r from-slate-900 via-indigo-700 to-blue-600 bg-clip-text text-transparent dark:from-white dark:via-blue-200 dark:to-indigo-300">
                 Welcome to AwardScope
               </span>
