@@ -30,6 +30,7 @@ AwardScope is an AI-powered financial aid discovery platform designed to help st
 -   **Framer Motion** (Advanced Animations)
 -   **Lucide React** (Iconography)
 -   **Vite** (Build Tool)
+-   **Framer Motion** (Animation)
 
 ### Backend
 -   **Node.js & Express**
