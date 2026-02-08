@@ -30,42 +30,53 @@ export default function AnalysisModal({
     },
   };
 
-  const style = colors[analysis.chanceLevel];
+    const style = colors[analysis.chanceLevel as keyof typeof colors];
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div
-          className={`${style.bg} ${style.border} border-b px-6 py-4 rounded-t-xl`}
-        >
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">
-                {analysis.awardName}
-              </h3>
-              <p className={`text-sm ${style.text} mt-1`}>{analysis.summary}</p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+    // Map backend levels to display labels
+    const displayLabels: Record<string, string> = {
+        HIGH: 'Likely',
+        MEDIUM: 'Moderate',
+        LOW: 'Low',
+    };
+
+    const displayLabel = displayLabels[analysis.chanceLevel] || analysis.chanceLevel;
+
+    // ...existing code...
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+                {/* Header */}
+                <div className={`${style.bg} ${style.border} border-b px-6 py-4 rounded-t-xl`}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h3 className="text-lg font-bold text-gray-900">{analysis.awardName}</h3>
+                            <p className={`text-sm ${style.text} mt-1`}>{analysis.summary}</p>
+                        </div>
+                        <button
+                            onClick={onClose}
+                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Chance Display */}
+                <div className="px-6 py-4 border-b">
+                    <div className="flex items-center justify-between">
+                        <span className="text-gray-600 font-medium">Your Chances</span>
+                        <div className="flex items-center gap-3">
+                            <span className={`px-4 py-2 rounded-lg font-bold text-xl ${style.badge}`}>
+                                {displayLabel}
+                            </span>
+                            <div className="text-right">
+                                <div className="text-2xl font-bold text-gray-900">{analysis.chancePercentage}%</div>
+                                <div className="text-xs text-gray-500">estimated</div>
+                            </div>
+                        </div>
+                    </div>
 
         {/* Chance Display */}
         <div className="px-6 py-4 border-b">
@@ -176,7 +187,5 @@ export default function AnalysisModal({
             Got it!
           </button>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
