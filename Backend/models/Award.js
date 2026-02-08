@@ -15,6 +15,10 @@ const awardSchema = new mongoose.Schema({
         enum: ['Scholarship', 'Bursary', 'Grant', 'Prize', 'Award', 'Emergency Fund', 'Emergency Support', 'Employment', 'Fellowship', 'Waiver'],
         required: true
     },
+    university: {
+        type: String,
+        required: false // Some awards might be provincial/national
+    },
     amount: {
         type: mongoose.Schema.Types.Mixed, // Can be Number or String (e.g., "Variable")
         required: true
