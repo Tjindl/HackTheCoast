@@ -60,8 +60,7 @@ export default function FormPage({
       console.error("Error fetching matches:", err);
       if (axios.isAxiosError(err)) {
         setError(
-          `Failed to find matches: ${err.message}. ${
-            err.response?.data?.error || ""
+          `Failed to find matches: ${err.message}. ${err.response?.data?.error || ""
           }`
         );
       } else {
@@ -94,7 +93,7 @@ export default function FormPage({
             <img
               src="/logo-transparent.png"
               alt="AwardScope Logo"
-              className="h-24 w-auto object-contain"
+              className="h-24 w-auto object-contain dark:invert-0 invert"
             />
           </div>
           <button
@@ -106,7 +105,7 @@ export default function FormPage({
         </div>
       </header>
 
-      <main className="pt-24 md:pt-28 pb-12 px-4 relative z-0">
+      <main className="pt-36 md:pt-44 pb-12 px-4 relative z-0">
         {error && (
           <div className="max-w-4xl mx-auto mb-8 px-6 animate-fade-in-up">
             <div className="bg-red-500/10 border border-red-500/40 text-red-200 px-6 py-4 rounded-xl shadow-lg backdrop-blur-md flex items-center gap-3">
@@ -124,11 +123,7 @@ export default function FormPage({
             />
           </div>
         ) : (
-          <div className="max-w-5xl mx-auto animate-fade-in-up backdrop-blur-3xl rounded-[2.5rem] p-6 md:p-10 border border-white/20 bg-white/5 dark:bg-slate-900/50 shadow-2xl relative overflow-hidden">
-            {/* Glass Reflections */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
-
+          <div className="max-w-6xl mx-auto animate-fade-in-up">
             <Results
               matches={matches}
               categorized={categorized}
